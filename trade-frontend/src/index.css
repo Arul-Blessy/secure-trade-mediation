@@ -1,0 +1,427 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #e5e7eb;
+  --danger: #b91c1c;
+  --danger-bg: #fee2e2;
+  --success: #166534;
+  --success-bg: #dcfce7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  background: #dbeafe;
+  border-radius: 999px;
+}
+
+/* ---------- Layout ---------- */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+/* ---------- Auth pages ---------- */
+.auth-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-switch {
+  margin: 16px 0 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- Forms ---------- */
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: var(--primary);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  padding: 9px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  color: var(--text);
+  background: #fff;
+  border-color: var(--border);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--bg);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------- Alerts ---------- */
+.alert {
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.alert-error {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.alert-success {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+/* ---------- Wallet ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+
+/* ---------- Tables ---------- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Extra buttons ---------- */
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger {
+  color: #fff;
+  background: var(--danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #991b1b;
+}
+
+/* ---------- Products ---------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.product-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-name {
+  font-weight: 700;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ---------- Status badges ---------- */
+.status {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.status-not_yet_dispatched {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.status-in_transit {
+  color: #1e40af;
+  background: #dbeafe;
+}
+
+.status-delivered {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.status-completed,
+.status-return_approved {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status-cancelled_by_buyer,
+.status-cancelled_by_seller,
+.status-return_rejected {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.status-return_requested {
+  color: #9a3412;
+  background: #ffedd5;
+}
+
+/* ---------- Seller form and agent alerts ---------- */
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.form-row .field {
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.alert-warning {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+/* ---------- Polish ---------- */
+.nav-link {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.amount-in {
+  font-weight: 600;
+  color: var(--success);
+}
+
+.amount-out {
+  font-weight: 600;
+  color: var(--danger);
+}
+
+.filter-select {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+}
+
+.hint {
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  color: #1e40af;
+  background: #dbeafe;
+  border-radius: 8px;
+}
+
+.not-found {
+  text-align: center;
+  padding-top: 64px;
+}
+
+.not-found h1 {
+  font-size: 4rem;
+  margin-bottom: 0;
+}
