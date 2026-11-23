@@ -6,6 +6,7 @@ import StatusBadge from "../components/StatusBadge";
 import { paymentLabel, rupees } from "../utils/format";
 
 const EMPTY_FORM = { name: "", price: "", imageUrl: "" };
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== "false";
 
 export default function SellerPage() {
   const { user } = useAuth();
@@ -91,6 +92,12 @@ export default function SellerPage() {
     run(() => api.post(`/api/orders/${order.id}/seller-cancel`), "Order cancelled.");
   };
 
+    const topUp = () =>
+    run(
+      () => api.post("/api/wallet/add-money", { amount: 1000 }),
+      "Added ₹1,000 of demo money to your wallet."
+    );
+
     const removeProduct = (product) => {
     const text =
       `Remove "${product.name}" from the store? Buyers will no longer see it. ` +
@@ -110,6 +117,12 @@ export default function SellerPage() {
       {message && <div className="alert alert-success">{message}</div>}
 
       <WalletCard refreshKey={walletKey} />
+
+            {DEMO_MODE && (
+        <button className="btn btn-outline btn-sm" onClick={topUp} disabled={busy}>
+          Add ₹1,000 demo money
+        </button>
+      )}
 
       <div className="card">
         <h2>List a new product</h2>
