@@ -7,7 +7,7 @@ whoever breaks the deal.
 Rebuilt from my earlier Python prototype (FastAPI + Streamlit) as a full-stack app with
 Java, Spring Boot, MySQL and React. The original work was published in IJSART.
 
-**Live demo:** _coming soon_
+**Live demo:** https://secure-trade-mediation-vork.vercel.app
 
 ## How the money logic works
 
