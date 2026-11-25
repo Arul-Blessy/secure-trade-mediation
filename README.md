@@ -5,7 +5,7 @@ delivery agent trade through a platform that locks money in escrow and penalizes
 whoever breaks the deal.
 
 Rebuilt from my earlier Python prototype (FastAPI + Streamlit) as a full-stack app with
-Java, Spring Boot, MySQL/PostgreSQL and React. The original work was published in IJSART.
+Java, Spring Boot, MySQL/PostgreSQL and React. 
 
 **Live demo:** https://secure-trade-mediation-vork.vercel.app
 
