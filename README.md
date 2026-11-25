@@ -5,9 +5,13 @@ delivery agent trade through a platform that locks money in escrow and penalizes
 whoever breaks the deal.
 
 Rebuilt from my earlier Python prototype (FastAPI + Streamlit) as a full-stack app with
-Java, Spring Boot, MySQL and React. The original work was published in IJSART.
+Java, Spring Boot, MySQL/PostgreSQL and React. The original work was published in IJSART.
 
 **Live demo:** https://secure-trade-mediation-vork.vercel.app
+
+> The demo runs on free hosting, so the **first load can take about a minute** while the
+> server wakes up. All money is play money. Demo accounts (password `12345678`):
+> `Blessy_buyer`, `Blessy_seller`, `Blessy_agent`.
 
 ## How the money logic works
 
@@ -57,21 +61,21 @@ stateDiagram-v2
 
 | Step | Screenshot | What it shows |
 |---|---|---|
-| 1 | <img src="docs/screenshots/login.png" width="320"> | The login page, where buyers, sellers and the delivery agent sign in with JWT-secured accounts. |
-| 2 | <img src="docs/screenshots/buyers_page.png" width="320"> | The buyer dashboard with the wallet card, product list and My Orders table. |
-| 3 | <img src="docs/screenshots/sellers_page.png" width="320"> | The seller dashboard for listing products and handling incoming orders. |
-| 4 | <img src="docs/screenshots/prepaid.png" width="320"> | A prepaid order, where the buyer's full price moves from the regular wallet into escrow. |
-| 5 | <img src="docs/screenshots/COD_escrowlock.png" width="320"> | A cash-on-delivery order, where only 10% of the price is locked in escrow and the rest is paid in cash on delivery. |
-| 6 | <img src="docs/screenshots/seller_agree.png" width="320"> | The seller agrees to the order and is told that a 10% security deposit will be locked. |
-| 7 | <img src="docs/screenshots/seller_COD_deposit.png" width="320"> | The seller's wallet after agreeing to a cash-on-delivery order, with the 10% deposit moved into escrow. |
-| 8 | <img src="docs/screenshots/money_locked_from_seller.png" width="320"> | The seller's deposit locked in escrow, which protects the buyer if the seller breaks the deal. |
-| 9 | <img src="docs/screenshots/transit_and_delivered.png" width="320"> | The delivery agent marks the order in transit and then delivered, while the money stays safe in escrow. |
-| 10 | <img src="docs/screenshots/confirm_receipt.png" width="320"> | The buyer confirms receipt, so the seller is paid and the seller's deposit is returned. |
-| 11 | <img src="docs/screenshots/return_order.png" width="320"> | The buyer requests a return after delivery, which sends the order to the delivery agent's review queue. |
-| 12 | <img src="docs/screenshots/reasonable.png" width="320"> | The agent judges the return reasonable, so the buyer is fully refunded and the seller's deposit is forfeited (7% to the buyer, 3% to the agent). |
-| 13 | <img src="docs/screenshots/not_reasonable.png" width="320"> | The agent judges the return not reasonable, so the buyer pays the 10% penalty (7% to the seller, 3% to the agent) and the seller's deposit is returned. |
-| 14 | <img src="docs/screenshots/wallet_history_buyer.png" width="320"> | The buyer's wallet history, listing every rupee that moved, taken from the double-entry ledger. |
-| 15 | <img src="docs/screenshots/19_tests_passed.png" width="320"> | All 19 automated tests passing, covering the 10%, 7% and 3% penalty rules. |
+| 1 | <img src="docs/screenshots/login.png" width="420"> | The login page, where buyers, sellers and the delivery agent sign in with JWT-secured accounts. |
+| 2 | <img src="docs/screenshots/buyers_page.png" width="420"> | The buyer dashboard with the wallet card, product list and My Orders table. |
+| 3 | <img src="docs/screenshots/sellers_page.png" width="420"> | The seller dashboard for listing products and handling incoming orders. |
+| 4 | <img src="docs/screenshots/prepaid.png" width="420"> | A prepaid order, where the buyer's full price moves from the regular wallet into escrow. |
+| 5 | <img src="docs/screenshots/COD_escrowlock.png" width="420"> | A cash-on-delivery order, where only 10% of the price is locked in escrow and the rest is paid in cash on delivery. |
+| 6 | <img src="docs/screenshots/seller_agree.png" width="420"> | The seller agrees to the order and is told that a 10% security deposit will be locked. |
+| 7 | <img src="docs/screenshots/seller_COD_deposit.png" width="420"> | The seller's wallet after agreeing to a cash-on-delivery order, with the 10% deposit moved into escrow. |
+| 8 | <img src="docs/screenshots/money_locked_from_seller.png" width="420"> | The seller's deposit locked in escrow, which protects the buyer if the seller breaks the deal. |
+| 9 | <img src="docs/screenshots/transit_and_delivered.png" width="420"> | The delivery agent marks the order in transit and then delivered, while the money stays safe in escrow. |
+| 10 | <img src="docs/screenshots/confirm_receipt.png" width="420"> | The buyer confirms receipt, so the seller is paid and the seller's deposit is returned. |
+| 11 | <img src="docs/screenshots/return_order.png" width="420"> | The buyer requests a return after delivery, which sends the order to the delivery agent's review queue. |
+| 12 | <img src="docs/screenshots/reasonable.png" width="420"> | The agent judges the return reasonable, so the buyer is fully refunded and the seller's deposit is forfeited (7% to the buyer, 3% to the agent). |
+| 13 | <img src="docs/screenshots/not_reasonable.png" width="420"> | The agent judges the return not reasonable, so the buyer pays the 10% penalty (7% to the seller, 3% to the agent) and the seller's deposit is returned. |
+| 14 | <img src="docs/screenshots/wallet_history_buyer.png" width="420"> | The buyer's wallet history, listing every rupee that moved, taken from the double-entry ledger. |
+| 15 | <img src="docs/screenshots/19_tests_passed.png" width="420"> | All 19 automated tests passing, covering the 10%, 7% and 3% penalty rules. |
 
 The penalty logic lives in
 [`EscrowService.java`](trade-mediation/src/main/java/com/trade/trademediation/service/EscrowService.java),
@@ -80,9 +84,10 @@ and its tests are in
 
 ## Tech stack
 
-- **Backend:** Java, Spring Boot 4, Spring Security (JWT + BCrypt, role-based access), Spring Data JPA / Hibernate, MySQL
+- **Backend:** Java, Spring Boot 4, Spring Security (JWT + BCrypt, role-based access), Spring Data JPA / Hibernate, MySQL (local) and PostgreSQL (live)
 - **Frontend:** React, React Router, Axios
 - **Quality:** JUnit 5, Mockito, Swagger/OpenAPI, Actuator health check
+- **Hosting:** Vercel (frontend), Render with Docker (backend), Neon (PostgreSQL)
 
 ## Engineering highlights
 
@@ -92,6 +97,7 @@ and its tests are in
 - **State machine:** every order action checks that the order is in a valid state and who is calling.
 - **Server-side security:** roles are enforced on the server, and the Agent role cannot be self-registered.
 - **Tested rules:** unit tests cover the 10% / 7% / 3% maths, COD edge cases, reputation limits and rejected actions.
+- **Deployed:** containerized with Docker, configured through environment variables, and running on a free cloud stack.
 
 ## Run locally
 
@@ -117,10 +123,18 @@ cd trade-mediation
 .\mvnw.cmd test
 ```
 
+## Deployment
+
+| Part | Platform | Notes |
+|---|---|---|
+| Frontend | Vercel | Set `VITE_API_URL` to the backend address |
+| Backend | Render (Docker) | Set `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `JWT_SECRET`, `APP_CORS_ALLOWED_ORIGINS` |
+| Database | Neon (PostgreSQL) | Run `trade-mediation/docs/schema-postgres.sql` once |
+
 ## Security notes
 
 - Passwords are hashed with BCrypt. No secrets are committed; configuration comes from environment variables.
-- Demo accounts and the demo top-up endpoint are enabled only when `app.demo-mode=true` and must be turned off in production.
+- Demo accounts and the demo top-up endpoint are enabled by `app.demo-mode=true`. The live demo keeps them on deliberately, with play money only. A real deployment must set `APP_DEMO_MODE=false` and create the delivery agent account separately.
 - Dependencies are scanned; test-scope alerts are not shipped, and runtime advisories are handled by upgrading Spring Boot patch versions.
 
 ## Possible improvements
